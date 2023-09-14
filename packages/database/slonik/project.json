@@ -1,0 +1,40 @@
+{
+  "name": "database-slonik",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/database/slonik/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/database/slonik",
+        "main": "packages/database/slonik/src/index.ts",
+        "tsConfig": "packages/database/slonik/tsconfig.lib.json",
+        "assets": ["packages/database/slonik/*.md"],
+        "generatePackageJson": true,
+        "format": ["cjs", "esm"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs database-slonik {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/database/slonik/**/*.ts", "packages/database/slonik/package.json"]
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["coverage/packages/database/slonik"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../../coverage/packages/database/slonik"
+      }
+    }
+  },
+  "tags": ["lib", "db"]
+}

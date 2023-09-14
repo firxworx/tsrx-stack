@@ -1,0 +1,22 @@
+-- public.session.sql contains a table schema for @mgcrea/fastify-session postgres session store
+--
+-- based on https://github.com/mgcrea/fastify-session-prisma-store/blob/master/prisma/schema.prisma
+-- @see https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference
+--
+-- reference prisma schema:
+--
+-- model Session {
+--   id        BigInt   @id @default(autoincrement()) @db.BigInt
+--   sid       String   @unique
+--   expires   DateTime --timestamp(3) per prisma docs
+--   data      Json -- jsonb default mapping per prisma docs
+--   createdAt DateTime @default(now())
+--   updatedAt DateTime @updatedAt
+--
+--   @@map("tbEts_Session")
+-- }
+--
+-- prisma by default maps DateTime to postgres type timestamptz(3)
+--
+-- if you wish to use @fastify/session instead of mgcrea/fastify-session refer to the package connect-pg-simple
+-- its database schema can be referenced at: https://github.com/voxpelli/node-connect-pg-simple/blob/main/table.sql
